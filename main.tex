@@ -1,0 +1,90 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage{geometry}
+\usepackage{hyperref}
+\usepackage{soul}
+
+\newcommand{\func}[1]{\\{\tt \ul{function}: #1}}
+
+\title{CS 224 Object Oriented Programming and Design Methodologies}
+\author{Assignment 02}
+\date{Out: 10 September, Due: 24 Sep, 1830h}
+
+\begin{document}
+\maketitle
+
+\section{Text Based Adventure}
+In this assignment you will be creating a text based dungeon crawler game. You have been given a source file \path{main.cpp} which contains the overall structure of the code that you need to write. You can run \path{Assignment2.exe} from \href{https://lms.habib.edu.pk/portal/site/684809f6-2cec-479c-8910-2f0b77a8793c}{the ZIP file on LMS} in order to play the game and judge how it works. Keep in mind that the dungeon needs to be hidden in your final submission. It is shown here for debugging purposes. The functions given here are all that you will need but you can make your own helper functions. Details about the assignment are as following:
+
+\begin{itemize}
+\item The dungeon should not be smaller than 8x8 grid.
+\item {\tt P} marks the position of player
+\item {\tt X} marks the position of Exit
+\item {\tt E} represents enemies on map
+\item {\tt F} represents food on map
+\item {\tt T} represents trap on map
+\item {\tt H} represents health on map
+\item {\tt w} represents wall on map
+\end{itemize}
+
+\subsection{Dungeon Creation}
+You will create a dungeon of size {\tt width} x {\tt height}. What this means is that you will need to create a single dimensional dynamic char array of size {\tt width} x {\tt height} as given by the user. You may need to store the starting point and the exit point by using the {\tt Point} structure. 
+\func{create\_dungeon}
+
+\subsubsection*{Guidelines}
+Here are the guidelines as to how the dungeon should be created:
+
+\begin{itemize}
+\item You should place walls around the borders of the dungeon.
+\item Iterate over the empty spaces one by one and place objects with a 20\% probability. If the probability is met then you should generate another random integer. If the value is between 0 and 15, place an enemy. 15 and 30, place health. 30 and 45 place trap. 45 and 60 place food and a wall if it is beyond 60. This will create a dungeon with a reasonable randomness. The numbers can vary if you want to change the difficulty of your dungeon.
+\item Iteratre over the dungeon again and place the player's starting position at random right next to the left edge of the dungeon. In case you are unable to place the starting position, place it on the top-left corner by default.
+\item Place the exit the same way right next to the right edge of the dungeon. Again, if you are unable to place the exit at random, place it at the bottom right corner by default.
+\end{itemize}
+
+\subsection{Traversal}
+Traverse the dungeon by traversing the char array from above.
+\func{traversal}
+
+\subsubsection*{Guidelines}
+Rules for traversing the dungeon are as following:
+
+\begin{itemize}
+\item You will move left, right, up or down every time
+\item Each step will consume 1 food
+\item If you encounter a wall or an edge, you will not move and lose 1 food
+\item If you reach {\tt H}, you will gain 1 health.
+\item If you reach {\tt T}, you will lose 1 health. You will call the {\tt trap\_statements} function at this point which will show one of the three random statements.
+\item If you reach {\tt F}, you will gain food for 4 to 8 days. You will call the {\tt food\_statements} function at this point which will show one of the three random statements.
+\item If you reach {\tt E}, you will fight 2 to 4 enemies. You will call the {\tt combat} function at this point which will play the combat automatically. In combat you will attack the enemy with a 30\% probability to score a hit. If you hit the enemy,  You will call the {\tt hit\_statements} function which will show one of the three random statements. The enemies will attack you as well with a 10\% probability each for making a hit. If they hit you, you will call the {\tt get\_hit\_statements} function which will show one of the three random statements. This will go on till either the enemies die or you die.
+\item If you reach {\tt X}, you will win the game
+\item If you run out of food, you will die
+\item If you choose {\tt x} as input for your turn, you will die
+\end{itemize}
+
+\section{Tips}
+Here are a few tips that can help you in doing this assignment.
+
+\begin{itemize}
+\item Do not do this assignment in one sitting. It will overwhelm you.
+\item You will need to do a bit of calculations to make the single dimensional array to behave like a multidimensional array. Keeping the array size small in the beginnnig will help.
+\item Do not forget to deallocate memory locations when they are no longer in use or if your program is ending.
+\item Showing the dungeon in every step will have you debug easily.
+\item Run the given executable many times to see how the program should work. Many of your questions would be answered that way. It is however missing a few checks that you will need to add yourself.
+\end{itemize}
+
+\section{Further Enhancements (Not Required)}
+If you end up completing the assignment and had fun, you can make it even better by doing the following additions:
+\begin{itemize}
+\item You can have enemies with different health pools. Basically, they will be created as player objects.
+\item You can have more than 3 statements in every function. This will make your adventure story less redundant and more fun.
+\item You can have your enemies move every turn too (randomly or with your defined AI)
+\item You can have a series of rooms. As you reach an exit, you move to a new room
+\item You can add story elements as well for example, you find notes. As you find all the notes a story becomes clearer.
+\item You can have the game play itself, which would mean that you will define player AI.
+\item Let your creativity run wild and you can add much much more to this text based adventure.
+\end{itemize}
+
+\begin{center}
+  --THE END--
+\end{center}
+
+\end{document}
