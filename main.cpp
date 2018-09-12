@@ -67,7 +67,7 @@ int main ()
 
   char* dungeon = nullptr;
 
-  dungeon = create_dungeon(dungeon, width, height, start_point, exit_point);
+  dungeon = create_dungeon(width, height, start_point, exit_point);
 
   traversal(dungeon, startPoint, exit_point, width, height);
 
