@@ -69,7 +69,7 @@ int main ()
 
   dungeon = create_dungeon(width, height, start_point, exit_point);
 
-  traversal(dungeon, startPoint, exit_point, width, height);
+  traversal(dungeon, start_point, exit_point, width, height);
 
   /*
    *   ADD YOUR CODE HERE IF REQUIRED
